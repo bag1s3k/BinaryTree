@@ -15,10 +15,10 @@ public class Node {
     }
 }
 
-public class BinaryTree {
+public class BinarySearchTree {
     public Node Root;
 
-    public BinaryTree() => Root = null;
+    public BinarySearchTree() => Root = null;
 
     public void Add(int value) => Root = AddRecursive(Root, value);
 
@@ -34,8 +34,10 @@ public class BinaryTree {
         
         return current;
     }
+}
 
-    public void InOrder(Node node) {
+public static class OrderMe {
+    public static void InOrder(Node node) {
         if (node != null) {
             InOrder(node.Left);
             Console.Write(node.Value + " ");
@@ -43,7 +45,7 @@ public class BinaryTree {
         }
     }
 
-    public void PreOrder(Node node) {
+    public static void PreOrder(Node node) {
         if (node != null) {
             Console.Write(node.Value + " ");
             PreOrder(node.Left);
@@ -51,7 +53,7 @@ public class BinaryTree {
         }
     }
 
-    public void PostOrder(Node node) {
+    public static void PostOrder(Node node) {
         if (node != null) {
             PostOrder(node.Left);
             PostOrder(node.Right);
@@ -62,7 +64,7 @@ public class BinaryTree {
 
 class Program {
     static void Main(string[] args) {
-        BinaryTree tree = new BinaryTree();
+        BinarySearchTree tree = new BinarySearchTree();
 
         Random rnd = new Random();
         for (int i = 0; i < 1000; i++)
@@ -72,21 +74,21 @@ class Program {
         
         stopwatch.Start();
         Console.WriteLine("In-order traversal:");
-        tree.InOrder(tree.Root);
+        OrderMe.InOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
         
         stopwatch.Restart();
         stopwatch.Start();
         Console.WriteLine("\nPre-order traversal: ");
-        tree.PreOrder(tree.Root);
+        OrderMe.PreOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
         
         stopwatch.Restart();
         stopwatch.Start();
         Console.WriteLine("\nPost-order traversal: ");
-        tree.PostOrder(tree.Root);
+        OrderMe.PostOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
     }
