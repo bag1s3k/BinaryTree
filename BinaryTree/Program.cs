@@ -66,30 +66,54 @@ class Program {
     static void Main(string[] args) {
         BinarySearchTree tree = new BinarySearchTree();
 
+        
         Random rnd = new Random();
-        for (int i = 0; i < 1000; i++)
-            tree.Add(rnd.Next(1000));
+        int rndN = 10000000;
+        for (int i = 0; i < rndN; i++)
+            tree.Add(rnd.Next(rndN));
+        
 
         Stopwatch stopwatch = new Stopwatch();
         
+        stopwatch.Start();
+        Console.WriteLine((Search(tree.Root, 50)) ? "Found" : "Not found");
+        stopwatch.Stop();
+        Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds} ms");
+
+        /*
         stopwatch.Start();
         Console.WriteLine("In-order traversal:");
         OrderMe.InOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
-        
+
         stopwatch.Restart();
         stopwatch.Start();
         Console.WriteLine("\nPre-order traversal: ");
         OrderMe.PreOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
-        
+
         stopwatch.Restart();
         stopwatch.Start();
         Console.WriteLine("\nPost-order traversal: ");
         OrderMe.PostOrder(tree.Root);
         stopwatch.Stop();
         Console.WriteLine($">> {stopwatch.Elapsed.TotalMilliseconds}ms");
+        */
+    }
+    
+    private static bool Search(Node root, int value) {
+        return SearchRecursive(root, value);
+    }
+
+    private static bool SearchRecursive(Node node, int value) {
+        if (node == null)
+            return false;
+
+        if (node.Value == value)
+            return true;
+
+        return SearchRecursive(node.Left, value) || SearchRecursive(node.Right, value);
     }
 }
